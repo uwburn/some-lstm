@@ -1,6 +1,6 @@
 import argparse
 from some_lstm.ar_signal import ar_signal
-from some_lstm.lstm_pipeline import run_csv_experiment
+from some_lstm.csv import csv_case
 from some_lstm.piecewise_constant import piecewise_constant
 from some_lstm.sine_multifreq import sine_multifreq
 from some_lstm.sine_regime_shift import sine_regime_shift
@@ -82,12 +82,12 @@ def main():
     elif args.command == "piecewise_constant":
         piecewise_constant(config_overrides=training_config_from_args(args))
     elif args.command == "csv":
-        run_csv_experiment(
+        csv_case(
             csv_path=args.csv,
             signal_col=args.signal_col,
             time_col=args.time_col,
-            experiment_name=args.tag,
-            config=training_config_from_args(args),
+            tag=args.tag,
+            config_overrides=training_config_from_args(args),
         )
     else:
         raise ValueError(f"Unknown command: {args.command}")

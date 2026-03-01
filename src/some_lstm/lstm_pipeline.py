@@ -350,21 +350,3 @@ def run_signal_experiment(signal, time=None, config=None, experiment_name="signa
         experiment_name=experiment_name,
     )
 
-
-def run_csv_experiment(
-    csv_path, signal_col, time_col="time", config=None, experiment_name="signal"
-):
-    df = pd.read_csv(csv_path)
-    pipeline_config = build_pipeline_config(config)
-    train_df, future_df = split_and_normalize_df(
-        df=df,
-        signal_col=signal_col,
-        time_col=time_col,
-        future_steps=pipeline_config["future_steps"],
-    )
-    return run_pipeline_from_train_df(
-        train_df=train_df,
-        future_df=future_df[["time", "signal_true"]],
-        config=pipeline_config,
-        experiment_name=experiment_name,
-    )
