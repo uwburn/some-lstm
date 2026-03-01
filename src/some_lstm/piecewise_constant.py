@@ -1,7 +1,7 @@
 import numpy as np
 
-from some_lstm.generated_case_utils import base_lengths, run_generated_case
-from some_lstm.lstm_pipeline import build_pipeline_config
+from some_lstm.utils import base_lengths
+from some_lstm.lstm_pipeline import build_pipeline_config, run_experiment
 
 
 def piecewise_constant(config_overrides=None):
@@ -19,4 +19,10 @@ def piecewise_constant(config_overrides=None):
     base = np.repeat(levels, step_len)[:n_total]
     noise = rng.normal(0.0, noise_std, size=n_total)
     signal = base + noise
-    return run_generated_case("piecewise_constant", signal, dt, config)
+    time = np.arange(0, n_total * dt, dt)
+    return run_experiment(
+        signal=signal,
+        time=time,
+        config=config,
+        tag="piecewise_constant",
+    )

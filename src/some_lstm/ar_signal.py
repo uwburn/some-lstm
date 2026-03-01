@@ -1,7 +1,7 @@
 import numpy as np
 
-from some_lstm.generated_case_utils import base_lengths, run_generated_case
-from some_lstm.lstm_pipeline import build_pipeline_config
+from some_lstm.utils import base_lengths
+from some_lstm.lstm_pipeline import build_pipeline_config, run_experiment
 
 
 def ar_signal(config_overrides=None):
@@ -20,4 +20,10 @@ def ar_signal(config_overrides=None):
     signal[1] = phi1 * signal[0] + eps[1]
     for i in range(2, n_total):
         signal[i] = phi1 * signal[i - 1] + phi2 * signal[i - 2] + eps[i]
-    return run_generated_case("ar_signal", signal, dt, config)
+    time = np.arange(0, n_total * dt, dt)
+    return run_experiment(
+        signal=signal,
+        time=time,
+        config=config,
+        tag="ar_signal",
+    )

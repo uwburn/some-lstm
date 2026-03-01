@@ -80,11 +80,11 @@ poetry run start sine_multifreq --epochs 200 --seq-length 128 --future-steps 800
 
 Each run writes files in `outputs/`:
 
-- `<experiment>_future_values.csv`
-- `<experiment>_training_history.csv`
-- `<experiment>_report.txt`
-- `<experiment>_one_step_prediction.png`
-- `<experiment>_autoregressive_continuation.png`
+- `<tag>_future_values.csv`
+- `<tag>_training_history.csv`
+- `<tag>_report.txt`
+- `<tag>_one_step_prediction.png`
+- `<tag>_autoregressive_continuation.png`
 
 The report includes common forecast metrics such as MAE, RMSE, correlation, and standard deviation ratio.
 

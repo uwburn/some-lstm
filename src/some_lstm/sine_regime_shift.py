@@ -1,7 +1,7 @@
 import numpy as np
 
-from some_lstm.generated_case_utils import base_lengths, run_generated_case
-from some_lstm.lstm_pipeline import build_pipeline_config
+from some_lstm.utils import base_lengths
+from some_lstm.lstm_pipeline import build_pipeline_config, run_experiment
 
 
 def sine_regime_shift(config_overrides=None):
@@ -16,4 +16,9 @@ def sine_regime_shift(config_overrides=None):
     signal = np.empty(n_total, dtype=float)
     signal[:split_idx] = 1.0 * np.sin(0.10 * t[:split_idx])
     signal[split_idx:] = 0.65 * np.sin(0.18 * t[split_idx:] + 0.7)
-    return run_generated_case("sine_regime_shift", signal, dt, config)
+    return run_experiment(
+        signal=signal,
+        time=t,
+        config=config,
+        tag="sine_regime_shift",
+    )

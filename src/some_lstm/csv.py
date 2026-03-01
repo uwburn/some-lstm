@@ -1,10 +1,6 @@
 import pandas as pd
 
-from some_lstm.lstm_pipeline import (
-    build_pipeline_config,
-    run_pipeline_from_train_df,
-    split_and_normalize_df,
-)
+from some_lstm.lstm_pipeline import run_experiment
 
 
 def csv_case(
@@ -15,16 +11,14 @@ def csv_case(
     config_overrides=None,
 ):
     df = pd.read_csv(csv_path)
-    config = build_pipeline_config(config_overrides)
-    train_df, future_df = split_and_normalize_df(
-        df=df,
-        signal_col=signal_col,
-        time_col=time_col,
-        future_steps=config["future_steps"],
-    )
-    return run_pipeline_from_train_df(
-        train_df=train_df,
-        future_df=future_df[["time", "signal_true"]],
-        config=config,
-        experiment_name=tag,
+    if signal_col not in df.columns:
+        raise ValueError(f"Signal column not found: {signal_col}")
+    if time_col not in df.columns:
+        raise ValueError(f"Time column not found: {time_col}")
+
+    return run_experiment(
+        signal=df[signal_col].to_numpy(),
+        time=df[time_col].to_numpy(),
+        config=config_overrides,
+        tag=tag,
     )

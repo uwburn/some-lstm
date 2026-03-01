@@ -186,9 +186,9 @@ def build_report(future_df):
     }
 
 
-def save_outputs(out_dir, future_df, history_df, report, experiment_name=None):
+def save_outputs(out_dir, future_df, history_df, report, tag=None):
     out_dir.mkdir(parents=True, exist_ok=True)
-    prefix = f"{experiment_name}_"
+    prefix = f"{tag}_"
 
     export_df = future_df[["time", "signal_pred", "signal_true"]].copy()
     export_df["abs_err"] = np.abs(export_df["signal_pred"] - export_df["signal_true"])
@@ -200,11 +200,9 @@ def save_outputs(out_dir, future_df, history_df, report, experiment_name=None):
             f.write(f"{k}: {v:.6f}\n")
 
 
-def plot_results(
-    out_dir, train_df, one_step_true, one_step_pred, future_df, experiment_name
-):
+def plot_results(out_dir, train_df, one_step_true, one_step_pred, future_df, tag):
     out_dir.mkdir(parents=True, exist_ok=True)
-    prefix = f"{experiment_name}_"
+    prefix = f"{tag}_"
 
     plt.figure(figsize=(12, 4))
     plt.plot(one_step_true, label="True")
@@ -228,12 +226,12 @@ def plot_results(
     plt.show()
 
 
-def run_pipeline_from_train_df(train_df, future_df, config, experiment_name=None):
+def run_pipeline_from_train_df(train_df, future_df, config, tag=None):
     set_seed(42)
     device = get_device()
     print(f"Device: {device}")
-    if experiment_name:
-        print(f"Experiment: {experiment_name}")
+    if tag:
+        print(f"Tag: {tag}")
 
     validate_config(config, train_size=len(train_df))
 
@@ -283,7 +281,7 @@ def run_pipeline_from_train_df(train_df, future_df, config, experiment_name=None
         future_df=out_future_df,
         history_df=history_df,
         report=report,
-        experiment_name=experiment_name,
+        tag=tag,
     )
     plot_results(
         Path("outputs"),
@@ -291,7 +289,7 @@ def run_pipeline_from_train_df(train_df, future_df, config, experiment_name=None
         one_step_true,
         one_step_pred,
         out_future_df,
-        experiment_name,
+        tag,
     )
     return report
 
@@ -326,7 +324,7 @@ def split_and_normalize_df(df, signal_col, time_col, future_steps):
     return train_raw, future_raw
 
 
-def run_signal_experiment(signal, time=None, config=None, experiment_name="signal"):
+def run_experiment(signal, time=None, config=None, tag="signal"):
     signal = np.asarray(signal, dtype=float)
     if time is None:
         time = np.arange(len(signal), dtype=float)
@@ -347,6 +345,5 @@ def run_signal_experiment(signal, time=None, config=None, experiment_name="signa
         train_df=train_df,
         future_df=future_df[["time", "signal_true"]],
         config=pipeline_config,
-        experiment_name=experiment_name,
+        tag=tag,
     )
-

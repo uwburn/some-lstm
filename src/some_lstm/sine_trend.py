@@ -1,7 +1,7 @@
 import numpy as np
 
-from some_lstm.generated_case_utils import base_lengths, run_generated_case
-from some_lstm.lstm_pipeline import build_pipeline_config
+from some_lstm.utils import base_lengths
+from some_lstm.lstm_pipeline import build_pipeline_config, run_experiment
 
 
 def sine_trend(config_overrides=None):
@@ -14,4 +14,9 @@ def sine_trend(config_overrides=None):
     _, n_total = base_lengths(train_end_t, dt, config["future_steps"])
     t = np.arange(0, n_total * dt, dt)
     signal = np.sin(omega * t) + trend_slope * t
-    return run_generated_case("sine_trend", signal, dt, config)
+    return run_experiment(
+        signal=signal,
+        time=t,
+        config=config,
+        tag="sine_trend",
+    )
