@@ -1,0 +1,26 @@
+[project]
+name = "some-lstm"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Michele Tibaldi",email = "tiboburn@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "torch (>=2.10.0,<3.0.0)",
+    "numpy (>=2.4.2,<3.0.0)",
+    "pandas (>=3.0.0,<4.0.0)",
+    "matplotlib (>=3.10.8,<4.0.0)",
+    "tqdm (>=4.67.2,<5.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "some_lstm", from = "src"}]
+
+[tool.poetry.scripts]
+start = "some_lstm.__main__:main"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

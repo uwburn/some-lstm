@@ -1,0 +1,78 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "LSTM - sine",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "lstm",
+      "console": "integratedTerminal",
+      "args": [
+        "sine"
+      ]
+    },
+    {
+      "name": "LSTM - sine + noise",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "lstm",
+      "console": "integratedTerminal",
+      "args": [
+        "sine_noise"
+      ]
+    },
+    {
+      "name": "LSTM - sine + trend",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "lstm",
+      "console": "integratedTerminal",
+      "args": [
+        "sine_trend"
+      ]
+    },
+    {
+      "name": "LSTM - sine multifrequency",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "lstm",
+      "console": "integratedTerminal",
+      "args": [
+        "sine_multifreq"
+      ]
+    },
+    {
+      "name": "LSTM - sine + regime shift",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "lstm",
+      "console": "integratedTerminal",
+      "args": [
+        "sine_regime_shift"
+      ]
+    },
+    {
+      "name": "LSTM - autoregressive signal",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "lstm",
+      "console": "integratedTerminal",
+      "args": [
+        "ar_signal"
+      ]
+    },
+    {
+      "name": "LSTM - piecewise constant",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "lstm",
+      "console": "integratedTerminal",
+      "args": [
+        "piecewise_constant"
+      ]
+    }
+  ]
+}
